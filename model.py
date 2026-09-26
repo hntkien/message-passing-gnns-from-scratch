@@ -11,15 +11,21 @@ def edges_to_coo(edge_list, num_nodes=None):
     # TODO: Convert a list of (src, dst) edge pairs into COO-format src/dst tensors.
     if not isinstance(edge_list, torch.Tensor):
         edge_list = torch.tensor(edge_list, dtype=torch.long)
-    edge_list = edge_list.long().reshape(-1, 2) 
-    if edge_list.numel() == 0: 
-        empty_list = torch.zeros((0, 2), dtype=torch.long)
-        src, dst = empty_list[:, 0], empty_list[:, 1]
-        num_nodes = 0 if num_nodes is None else num_nodes
+    edge_list = edge_list.reshape(-1, 2) 
+    src, dst = edge_list[:, 0], edge_list[:, 1]
+    if num_nodes is None:
+        num_nodes = int(torch.max(edge_list).item()) + 1 if edge_list.numel() != 0 else 0
     else:
-        src, dst = edge_list[:, 0], edge_list[:, 1]
-        if num_nodes==None:
-            num_nodes = int(torch.max(edge_list).item()) + 1
+        num_nodes
+
+    # if edge_list.numel() == 0: 
+    #     empty_list = torch.zeros((0, 2), dtype=torch.long)
+    #     src, dst = empty_list[:, 0], empty_list[:, 1]
+    #     num_nodes = 0 if num_nodes is None else num_nodes
+    # else:
+    #     src, dst = edge_list[:, 0], edge_list[:, 1]
+    #     if num_nodes==None:
+    #         num_nodes = int(torch.max(edge_list).item()) + 1
     return src, dst, num_nodes
 
 # Step 2 - add_self_loops (not yet solved)
