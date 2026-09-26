@@ -92,8 +92,15 @@ def symmetric_normalize_edge_weights(src, dst, num_nodes, edge_weight=None):
     # torch.where(torch.isfinite(edge_weight), edge_weight, 0)
     return edge_weight
 
-# Step 5 - gather_source_node_features (not yet solved)
-# TODO: implement
+# Step 5 - gather_source_node_features
+def gather_source_node_features(node_features, src):
+    # TODO: Return edge-aligned source feature rows (E, F) from node_features.
+    assert isinstance(src, torch.LongTensor)
+    num_nodes, feat_dim = node_features.shape[0], node_features.shape[1] 
+    num_edges = src.shape[0] 
+    edge_src_feats = node_features[src] 
+    assert edge_src_feats.shape[0] == num_edges and edge_src_feats.shape[1] == feat_dim 
+    return edge_src_feats
 
 # Step 6 - scatter_sum_to_nodes (not yet solved)
 # TODO: implement
