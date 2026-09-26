@@ -15,8 +15,8 @@ def edges_to_coo(edge_list, num_nodes=None):
     src, dst = edge_list[:, 0], edge_list[:, 1]
     if num_nodes is None:
         num_nodes = int(torch.max(edge_list).item()) + 1 if edge_list.numel() != 0 else 0
-    else:
-        num_nodes
+    # else:
+    #     num_nodes
 
     # if edge_list.numel() == 0: 
     #     empty_list = torch.zeros((0, 2), dtype=torch.long)
